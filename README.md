@@ -2,19 +2,17 @@
 <br>
 
 ## Tutorial Angular tour of heroes
-<br>
 Wegens problemen bij het uploaden van het gehele project hier een korte samenvatting.
-<br>
 
 ### Stappenplan
 
 #### Setup project
 Ga naar de plaats waar je het project wil en open cmd.
-<br>
+
 > ng new my-project-name
-<br>
+
 laat het installeren
-<br>
+
 > cd my-project-name
 
 #### Import src
