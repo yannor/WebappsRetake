@@ -20,11 +20,9 @@ Verander in het project de map src naar de map src die je hier terugvind
 
 #### Voeg node toe
 Hierbij heb ik 1 extra node module moeten toevoegen, deze voeg je zo toe:
-<br>
 >npm i angular-in-memory-web-api
 
 #### Start
 Je kan nu het project starten door in de directory je cmd te openen en dit commando uit te voeren: 
-<br>
 >npm start
 
