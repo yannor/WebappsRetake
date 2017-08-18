@@ -1,0 +1,1 @@
+var passport=require("passport"),LocalStrategy=require("passport-local").Strategy,mongoose=require("mongoose"),User=mongoose.model("User");passport.use(new LocalStrategy(function(a,b,c){User.findOne({username:a},function(a,d){return a?c(a):d?d.validPassword(b)?c(null,d):c(null,!1,{message:"Incorrect password."}):c(null,!1,{message:"Incorrect username."})})}));
