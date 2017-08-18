@@ -5,14 +5,17 @@
 <br>
 Wegens problemen bij het uploaden van het gehele project hier een korte samenvatting.
 <br>
+
 ### Stappenplan
 
 #### Setup project
 Ga naar de plaats waar je het project wil en open cmd.
 <br>
->ng new my-project-name
+> ng new my-project-name
 <br>
->cd my-project-name
+laat het installeren
+<br>
+> cd my-project-name
 
 #### Import src
 Verander in het project de map src naar de map src die je hier terugvind
