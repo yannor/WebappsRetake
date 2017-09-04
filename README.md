@@ -29,4 +29,15 @@ Hierbij heb ik 1 extra node module moeten toevoegen, deze voeg je zo toe:
 #### Start
 Je kan nu het project starten door in de directory je cmd te openen en dit commando uit te voeren: 
 >npm start
+<br>
+<br>
+<br>
 
+## Stappenplan Flapper news
+- Start mongo (in map mongo command: mongod &)
+- Ga naar map project en open cmd
+- Commands
+  * Npm install
+  * Npm start
+- Open browser
+- Surf naar localhost:3000
