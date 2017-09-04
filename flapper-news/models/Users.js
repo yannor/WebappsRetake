@@ -1,1 +1,58 @@
-var mongoose=require("mongoose"),crypto=require("crypto"),jwt=require("jsonwebtoken"),UserSchema=new mongoose.Schema({username:{type:String,lowercase:!0,unique:!0},hash:String,salt:String});UserSchema.methods.generateJWT=function(){var a=new Date,b=new Date(a);return b.setDate(a.getDate()+60),jwt.sign({_id:this._id,username:this.username,exp:parseInt(b.getTime()/1e3)},"SECRET")},UserSchema.methods.setPassword=function(a){this.salt=crypto.randomBytes(16).toString("hex"),this.hash=crypto.pbkdf2Sync(a,this.salt,1e3,64).toString("hex")},UserSchema.methods.validPassword=function(a){var b=crypto.pbkdf2Sync(a,this.salt,1e3,64).toString("hex");return this.hash===b},mongoose.model("User",UserSchema);
+var mongoose = require("mongoose");
+var crypto = require("crypto");
+var jwt = require("jsonwebtoken");
+
+var UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    lowercase: true,
+    unique: true
+  },
+  upvotedPosts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Post"
+  }],
+  downvotedPosts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Post"
+  }],
+  upvotedComments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
+  }],
+  downvotedComments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
+  }],
+  hash: String,
+  salt: String
+});
+
+// TODO upvotedPosts,downvotedPosts,upvotedComments,downvotedComments not used
+
+UserSchema.methods.setPassword = function(password) {
+  this.salt = crypto.randomBytes(16).toString("hex");
+
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString("hex");
+};
+
+UserSchema.methods.validPassword = function(password) {
+  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString("hex");
+
+  return this.hash === hash;
+};
+
+UserSchema.methods.generateJWT = function() {
+  // set expiration to 60 days
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate(today.getDate() + 60);
+
+  return jwt.sign({
+    _id: this._id,
+    username: this.username,
+    exp: parseInt(exp.getTime() / 1000)
+  }, "SECRET"); // TODO this should be setup as an ENV variable as should be kept out of the codebase
+};
+
+mongoose.model("User", UserSchema);

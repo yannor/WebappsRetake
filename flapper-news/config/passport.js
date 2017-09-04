@@ -1,1 +1,28 @@
-var passport=require("passport"),LocalStrategy=require("passport-local").Strategy,mongoose=require("mongoose"),User=mongoose.model("User");passport.use(new LocalStrategy(function(a,b,c){User.findOne({username:a},function(a,d){return a?c(a):d?d.validPassword(b)?c(null,d):c(null,!1,{message:"Incorrect password."}):c(null,!1,{message:"Incorrect username."})})}));
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+var mongoose = require("mongoose");
+var User = mongoose.model("User");
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({
+      username: username
+    }, function(err, user) {
+      if (err) {
+        return done(err);
+      }
+
+      if (!user) {
+        return done(null, false, {
+          message: "Incorrect username."
+        });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, {
+          message: "Incorrect password."
+        });
+      }
+      return done(null, user);
+    });
+  }
+));
